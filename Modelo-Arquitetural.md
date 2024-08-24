@@ -22,10 +22,15 @@ Trello é uma ferramenta de gerenciamento de projetos que utiliza quadros (board
 
 ---
 ## Diagrama Arquitetural
-...
+Diagrama com intuito de estruturar os principais componentes técnicos e como eles interagem para suportar as funcionalidades descritas: 
+<br>
+<br>
+![Diagrama Arquitetural](https://github.com/user-attachments/assets/2a00b4e2-7c1d-4c3e-ad21-fa1a8b1ee93c)
 
+---
 ## Padrões
 1. Variáveis devem seguir a convenção de nomenclatura camelCase
+
 2. Arquivos devem seguir a convenção de nomenclatura Snake Case
 3. Estruturação de arquivos através do gerenciador de pacotes e templates Slidy
 4. Testes unitários serão feitos com o pacote do próprio dart (test)
