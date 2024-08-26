@@ -4,6 +4,7 @@
 - [Relatórios de Gestão](#relatórios-de-gestão)
 - [Regras / Modelo Arquitetural](#modelo-arquitetural)
 - [Planejamento de Iterações](#planejamento-de-iterações)
+- [Canvas](#business-model-canvas)
 
 ## Projeto de Sistemas - 2024.2 | Universidade Federal do Tocantins - Palmas
 #### Curso: Bacharelado em Ciência da Computação
@@ -21,3 +22,5 @@ Documento com as regras/modelo arquitetural: [Clique aqui](Modelo-Arquitetural.m
 
 ## Planejamento de Iterações
 O planejamento do projeto está sendo feito no trello, visualize-o através do link: [clique aqui](https://trello.com/invite/b/66c00534ce448abf9772e9c8/ATTI9402cc25ce4ac772700267e8c43f1ba928642239/zemenu)
+
+## Business Model Canvas

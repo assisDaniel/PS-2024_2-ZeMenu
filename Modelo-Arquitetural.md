@@ -37,4 +37,35 @@ Diagrama com intuito de estruturar os principais componentes técnicos e como el
 
 ---
 ## Implementação/Exemplos
-...
+Exemplo Camada de Apresentação:
+```
+Expanded(
+            child: ListView(
+              children: const [
+                ProductCard(
+                  title: 'X Tudo',
+                  description:
+                      'PÃO, HAMBURGUER, BACON, SALSICHA, CALABRESA, OVO, CATUPIRY, PRESUNTO, MUSSARELA, ALFACE, TOMATE.',
+                  price: 'R\$ 25,00',
+                  imageUrl: 'assets/images/fotohamburguer.png',
+                ),
+                ProductCard(
+                  title: 'X Bacon',
+                  description:
+                      'PÃO, HAMBURGUER, BACON, SALSICHA, OVO, CATUPIRY, PRESUNTO, MUSSARELA, ALFACE, TOMATE.',
+                  price: 'R\$ 21,00',
+                  imageUrl: 'assets/images/fotohamburguer.png',
+                ),
+                ProductCard(
+                  title: 'X Moda da casa',
+                  description:
+                      'PÃO, HAMBURGUER, BACON, SALSICHA, CALABRESA, OVO, CATUPIRY, PRESUNTO, MUSSARELA, ALFACE, TOMATE.',
+                  price: 'R\$ 23,00',
+                  imageUrl: 'assets/images/fotohamburguer.png',
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+```
