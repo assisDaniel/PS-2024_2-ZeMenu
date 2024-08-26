@@ -25,7 +25,8 @@ Trello é uma ferramenta de gerenciamento de projetos que utiliza quadros (board
 Diagrama com intuito de estruturar os principais componentes técnicos e como eles interagem para suportar as funcionalidades descritas: 
 <br>
 <br>
-![Diagrama Arquitetural](https://github.com/user-attachments/assets/2a00b4e2-7c1d-4c3e-ad21-fa1a8b1ee93c)
+![Diagrama Arquitetural](https://github.com/user-attachments/assets/b3a4259a-e6f3-45f7-8f25-adf8c230233a)
+
 
 ---
 ## Padrões
