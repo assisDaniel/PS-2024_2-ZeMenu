@@ -4,6 +4,8 @@
 - [Relatórios de Gestão](#relatórios-de-gestão)
 - [Regras / Modelo Arquitetural](#modelo-arquitetural)
 - [Planejamento de Iterações](#planejamento-de-iterações)
+- [Protótipos](#protótipos)
+- [Canvas](#business-model-canvas)
 
 ## Projeto de Sistemas - 2024.2 | Universidade Federal do Tocantins - Palmas
 #### Curso: Bacharelado em Ciência da Computação
@@ -16,8 +18,14 @@ ZéMenu é um sistema inovador de gerenciamento de pedidos desenvolvido por alun
 ## Relatórios de Gestão
 Relatórios ficarão aqui quando as iterações forem finalizadas.
 
+## Protótipos
+Os protótipos foram feitos no figma, visualize-o através do link: [clique aqui](https://www.figma.com/design/biS0ZyJgpL2OzB5R3xVYXa/Z%C3%A9Menu?node-id=0-1&t=Q9IABUx2fVXe9zf3-1)
+
 ## Modelo Arquitetural
 Documento com as regras/modelo arquitetural: [Clique aqui](Modelo-Arquitetural.md)
 
 ## Planejamento de Iterações
 O planejamento do projeto está sendo feito no trello, visualize-o através do link: [clique aqui](https://trello.com/invite/b/66c00534ce448abf9772e9c8/ATTI9402cc25ce4ac772700267e8c43f1ba928642239/zemenu)
+
+## Business Model Canvas
+![Canvas](https://github.com/user-attachments/assets/3b95dc82-53eb-454a-aafe-34ac504ca493)
