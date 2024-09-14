@@ -75,7 +75,7 @@ class TelaInicialState extends State<TelaInicial> {
         'title': 'Guaraná',
         'description': 'Brasileiro e refrescante.',
         'price': 'R\$ 6,00',
-        'imageUrl': 'assets/images/guarana.png',
+        'imageUrl': 'assets/images/guarana.jpg',
       },
     ],
     'Cremes': [
@@ -83,7 +83,7 @@ class TelaInicialState extends State<TelaInicial> {
         'title': 'Açaí',
         'description': 'Açaí cremoso com acompanhamentos.',
         'price': 'R\$ 15,00',
-        'imageUrl': 'assets/images/acai.jpg',
+        'imageUrl': 'assets/images/acai.png',
       },
       {
         'title': 'Creme de Cupuaçu',
