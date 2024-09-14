@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ze_menu/carrinho.dart';
+import 'package:ze_menu/pedido.dart';
 import 'conexao.dart';
 
 void main() async {
@@ -19,6 +21,11 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const TelaInicial(),
+      routes: {
+        '/incio': (_) => const MyApp(),
+        '/carrinho': (_) => const Carrinho(),
+        '/pedidos': (_) => const Pedidos(),
+      },
     );
   }
 }
@@ -214,6 +221,19 @@ class TelaInicialState extends State<TelaInicial> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         selectedFontSize: 0,
+        onTap: (index) {
+          switch (index) {
+            case 0:
+              Navigator.of(context).pushNamed('/incio');
+              break;
+            case 1:
+              Navigator.of(context).pushNamed('/pedidos');
+              break;
+            case 2:
+              Navigator.of(context).pushNamed('/carrinho');
+              break;
+          }
+        },
         items: const [
           BottomNavigationBarItem(
             icon: ImageIcon(
@@ -270,30 +290,6 @@ class ProductCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Card(
-        child: Row(children: [
-          Image.asset(imageUrl),
-          const SizedBox(width: 12), // Imagem do produto
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-                textScaler: const TextScaler.linear(1.25),
-              ),
-              SizedBox(
-                width: 250,
-                child: Text(description,
-                    textScaler: const TextScaler.linear(0.75)),
-              ),
-              Text(
-                price,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-                textScaler: const TextScaler.linear(1.25),
-              ),
-            ],
-          )
-        ]),
         child: Row(children: [
           Image.asset(
             imageUrl,
