@@ -29,9 +29,7 @@ class TelaInicial extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color(0xFF14C871), // Cor verde definida
         shape: const RoundedRectangleBorder(
-          borderRadius:  BorderRadius.vertical(
-            bottom:  Radius.circular(30)
-          ),
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
         ),
         bottom: PreferredSize(
           preferredSize:
@@ -51,10 +49,10 @@ class TelaInicial extends StatelessWidget {
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
-                      borderSide: const BorderSide( color: Colors.white),
+                      borderSide: const BorderSide(color: Colors.white),
                       borderRadius: BorderRadius.circular(15.0),
                     ),
-                    hintStyle: const TextStyle( color: Colors.grey),
+                    hintStyle: const TextStyle(color: Colors.grey),
                   ),
                 ),
                 const SizedBox(height: 8.0),
@@ -186,31 +184,30 @@ class ProductCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Card(
-        child: Row(
-          children: [
-            Image.asset(imageUrl),
-            const SizedBox(width: 12), // Imagem do produto
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                  textScaler: const TextScaler.linear(1.25),
-                ),
-                SizedBox(
-                  width: 250,
-                  child: Text(description,
-                    textScaler: const TextScaler.linear(0.75)
-                  ),
-                ),
-                Text(price,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                  textScaler: const TextScaler.linear(1.25),
-                ),
-              ],
-            )
-          ]
-        ),
+        child: Row(children: [
+          Image.asset(imageUrl),
+          const SizedBox(width: 12), // Imagem do produto
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+                textScaler: const TextScaler.linear(1.25),
+              ),
+              SizedBox(
+                width: 250,
+                child: Text(description,
+                    textScaler: const TextScaler.linear(0.75)),
+              ),
+              Text(
+                price,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+                textScaler: const TextScaler.linear(1.25),
+              ),
+            ],
+          )
+        ]),
       ),
     );
   }
