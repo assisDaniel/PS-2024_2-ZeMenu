@@ -27,5 +27,9 @@ Documento com as regras/modelo arquitetural: [Clique aqui](Modelo-Arquitetural.m
 ## Planejamento de Iterações
 O planejamento do projeto está sendo feito no trello, visualize-o através do link: [clique aqui](https://trello.com/invite/b/66c00534ce448abf9772e9c8/ATTI9402cc25ce4ac772700267e8c43f1ba928642239/zemenu)
 
+<br>
+
+Documentação complementar: [clique aqui](Descricao-Iteracoes.md)
+
 ## Business Model Canvas
 ![Canvas](https://github.com/user-attachments/assets/3b95dc82-53eb-454a-aafe-34ac504ca493)
