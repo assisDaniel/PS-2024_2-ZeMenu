@@ -287,38 +287,67 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Obtém o tamanho da tela
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    // Defina diferentes larguras para a imagem conforme o tamanho da tela
+    double imageWidth = screenWidth * 0.3;
+    double imageHeight = imageWidth;
+
+    // Modifica os tamanhos de texto de forma responsiva
+    double titleTextSize = screenWidth > 600 ? 18 : 16; // Aumenta em telas maiores
+    double descriptionTextSize = screenWidth > 600 ? 14 : 12;
+    double priceTextSize = screenWidth > 600 ? 18 : 16;
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Card(
-        child: Row(children: [
-          Image.asset(
-            imageUrl,
-            width: imageWidth, // Definindo a largura da imagem
-            height: imageHeight, // Definindo a altura da imagem
-            fit: BoxFit.cover, // Como a imagem deve se ajustar ao container
-          ),
-          const SizedBox(width: 12),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-                textScaler: const TextScaler.linear(1.25),
-              ),
-              SizedBox(
-                width: 250,
-                child: Text(description,
-                    textScaler: const TextScaler.linear(0.75)),
-              ),
-              Text(
-                price,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-                textScaler: const TextScaler.linear(1.25),
-              ),
-            ],
-          )
-        ]),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            // Ajustar layout responsivo com base na largura disponível
+            return Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Image.asset(
+                  imageUrl,
+                  width: imageWidth, // Define a largura responsiva da imagem
+                  height: imageHeight, // Define a altura responsiva da imagem
+                  fit: BoxFit.cover, // A imagem preenche o container
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  // Expande o conteúdo da descrição para ocupar o restante do espaço
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: titleTextSize, // Tamanho responsivo
+                        ),
+                      ),
+                      SizedBox(
+                        width: screenWidth * 0.5, // Responsivo ao tamanho da tela
+                        child: Text(
+                          description,
+                          style: TextStyle(fontSize: descriptionTextSize),
+                        ),
+                      ),
+                      Text(
+                        price,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: priceTextSize, // Tamanho responsivo
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            );
+          },
+        ),
       ),
     );
   }
