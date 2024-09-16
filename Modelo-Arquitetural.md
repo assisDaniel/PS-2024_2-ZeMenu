@@ -11,8 +11,8 @@ Dart é uma linguagem de programação desenvolvida pela Google. É uma linguage
 <br>
 Flutter é um framework que utiliza Dart para construir aplicativos móveis, web e desktop com uma única base de código. Ele é conhecido por permitir o desenvolvimento rápido com widgets customizáveis e uma renderização altamente eficiente.
 
-### 2. MySQL
-MySQL é um sistema de gerenciamento de banco de dados relacional (RDBMS) de código aberto. Ele é usado para armazenar, organizar e acessar dados em tabelas, sendo amplamente utilizado em aplicações web para gerenciar grandes volumes de informações.
+### 2. PostgreSQL
+PostgreSQL é um sistema de gerenciamento de banco de dados relacional (RDBMS) de código aberto. Ele é usado para armazenar, organizar e acessar dados em tabelas, sendo amplamente utilizado em aplicações web para gerenciar grandes volumes de informações.
 
 ### 3. Figma
 Figma é uma ferramenta de design colaborativa baseada na nuvem, usada principalmente para criar interfaces de usuário (UI) e protótipos. Ela permite que várias pessoas trabalhem juntas em tempo real, facilitando o desenvolvimento de projetos de design e colaboração entre equipes.
