@@ -11,6 +11,8 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
+  mobile_scanner: ^5.2.2
+  http: ^1.2.2
   postgres: ^2.5.5
   logger: ^1.0.0
 
