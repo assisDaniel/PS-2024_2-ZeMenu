@@ -1,37 +1,61 @@
 import 'package:postgres/postgres.dart';
-import 'package:logger/logger.dart';
+import 'package:ze_menu/main.dart';
 
-class Conexao {
-  late PostgreSQLConnection _connection;
-  final Logger _logger = Logger();
+class Conexao{
+  PostgreSQLConnection? conn;
 
-  Conexao() {
-    _connection = PostgreSQLConnection(
-      'damnably-literary-tiger.data-1.use1.tembo.io',
-      5432,
-      'zemenu',
-      username: 'postgres',
-      password: 'WCw72vrvvoUFw8qs',
-    );
-  }
+  Conexao();
 
-  Future<void> conectar() async {
+  Future conectar() async {
+    conn = PostgreSQLConnection(
+      "damnably-literary-tiger.data-1.use1.tembo.io", 5432, "postgres",
+      username: "postgres",
+      password: "WCw72vrvvoUFw8qs",
+      useSSL: true);
     try {
-      await _connection.open();
-      _logger.i('Conectado ao banco de dados PostgreSQL');
-    } catch (e) {
-      _logger.e('Erro ao conectar ao banco de dados', e);
+      await conn!.open();
+      print("Connected");
+    }catch(e) {
+      print("error");
+      print(e.toString());
     }
   }
 
-  Future<void> desconectar() async {
+
+  Future<Map<String, List<Map<String, String>>>> getProductByCategory(String categoria) async {
+    if (conn == null || conn!.isClosed) {
+      await conectar();
+    }
+
     try {
-      await _connection.close();
-      _logger.i('Desconectado do banco de dados PostgreSQL');
+      List<List<dynamic>> results = await conn!.query('''
+        SELECT nome_item, descricao, precos, imagem_item 
+        FROM emp1.cardapio 
+        WHERE categoria = @categoria
+      ''', substitutionValues: {
+        'categoria': categoria
+      });
+
+      if (results.isEmpty) {
+        print("No products found for category: $categoria");
+        return {};
+      }
+
+      Map<String, List<Map<String, String>>> produtos = {categoria: []};
+
+      for (var row in results){
+        produtos[categoria]?.add({
+          'title': row[0].toString(),
+          'description': row[1].toString(),
+          'price': row[2].toString(),
+          'imageUrl': row[3].toString()
+        });
+      }
+
+      return produtos;
     } catch (e) {
-      _logger.e('Erro ao desconectar do banco de dados', e);
+      print("Error retrieving products: ${e.toString()}");
+      return {};
     }
   }
-
-  PostgreSQLConnection get conexao => _connection;
 }
