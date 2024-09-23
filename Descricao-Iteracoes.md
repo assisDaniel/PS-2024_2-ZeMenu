@@ -4,9 +4,19 @@
 ## 1ª Iteração - (02/09/2024 - 15/09/2024)
 Valor: Nesta primeira iteração, temos como objetivo dar o primeiro passo no projeto. Desse modo, faremos a 'Tela Inicial' da forma como foi esboçada no figma. Em suma, essa tela é composta pelo cardápio do restaurante separado por categorias, uma barra de pesquisa e uma barra de menu inferior com opções.
 
-- D11 - Estruturação e Criação do Banco de Dados. Autor: @assisDaniel | Revisor: @httpablo
-- D2 - Implementação da Tela Inicial
+- DS1 - Estruturação e Criação do Banco de Dados. Autor: @assisDaniel | Revisor: @httpablo
+- DU2 - Implementação da Tela Inicial
     - T0 - Preenchimento das categorias. Autor: @tarcisof | Revisor: @assisDaniel
     - T1 - Implementação da barra de menu inferior. Autor: @httpablo | Revisor: @tarcisof 
-- D1 - Implementação da Splash Screen. Autor: @danmaciel23 | Revisor: @fariaiago
-- D0 - Criar a Leitura de QR Code. Autor: @fariaiago | Revisor: @danmaciel23
+- DU1 - Implementação da Splash Screen. Autor: @danmaciel23 | Revisor: @fariaiago
+- DU0 - Criar a Leitura de QR Code. Autor: @fariaiago | Revisor: @danmaciel23
+
+## 2ª Iteração - (16/09/2024 - 29/09/2024)
+Valor: Usuário tem como efetivamente fazer os pedidos sem assistência do garçom de forma mais "rústica". Além disso, o administrador agora terá acesso a tela de login do site web.
+
+- DU3 - Implementação Tela de Pedidos. Autor: @tarcisof | Revisor: @fariaiago
+- DU4 - Implementação Tela de Carrinho
+    - T0 - Implementar tela de adicionar ao carrinho. Autor: @assisDaniel | Revisor: @httpablo
+    - T1 - Implementar tela de enviar pedido. Autor: @httpablo | Revisor: @danmaciel23
+    - T2 - Implementar tela de confirmação do pedido. Autor: @danmaciel23 | Revisor: @assisDaniel
+- DU5 - Implementar Tela de Login (Admin). Autor: @fariaiago | Revisor: @tarcisof

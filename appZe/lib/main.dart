@@ -5,8 +5,8 @@ import 'conexao.dart';
 
 void main() async {
   runApp(const MyApp());
-  Conexao conexao = Conexao();
-  await conexao.conectar();
+  Conexao conn = Conexao();
+  conn.conectar();
 }
 
 class MyApp extends StatelessWidget {
@@ -38,68 +38,39 @@ class TelaInicial extends StatefulWidget {
 }
 
 class TelaInicialState extends State<TelaInicial> {
-  String selectedCategory = 'Lanches';
+  var selectedCategory = 'refeicoes';
 
-  final Map<String, List<Map<String, String>>> products = {
-    'Lanches': [
-      {
-        'title': 'X Tudo',
-        'description':
-            'PÃO, HAMBURGUER, BACON, SALSICHA, CALABRESA, OVO, CATUPIRY, PRESUNTO, MUSSARELA, ALFACE, TOMATE.',
-        'price': 'R\$ 25,00',
-        'imageUrl': 'assets/images/fotohamburguer.png',
-      },
-      {
-        'title': 'X Bacon',
-        'description':
-            'PÃO, HAMBURGUER, BACON, SALSICHA, OVO, CATUPIRY, PRESUNTO, MUSSARELA, ALFACE, TOMATE.',
-        'price': 'R\$ 21,00',
-        'imageUrl': 'assets/images/fotohamburguer.png',
-      },
-    ],
-    'Sucos': [
-      {
-        'title': 'Suco de Laranja',
-        'description': 'Fresco, natural e delicioso.',
-        'price': 'R\$ 10,00',
-        'imageUrl': 'assets/images/suco_laranja.jpg',
-      },
-      {
-        'title': 'Suco de Morango',
-        'description': 'Refrescante e doce.',
-        'price': 'R\$ 12,00',
-        'imageUrl': 'assets/images/suco_morango.png',
-      },
-    ],
-    'Refrigerantes': [
-      {
-        'title': 'Coca-Cola',
-        'description': 'Tradicional e gelada.',
-        'price': 'R\$ 7,00',
-        'imageUrl': 'assets/images/coca_cola.png',
-      },
-      {
-        'title': 'Guaraná',
-        'description': 'Brasileiro e refrescante.',
-        'price': 'R\$ 6,00',
-        'imageUrl': 'assets/images/guarana.jpg',
-      },
-    ],
-    'Cremes': [
-      {
-        'title': 'Açaí',
-        'description': 'Açaí cremoso com acompanhamentos.',
-        'price': 'R\$ 15,00',
-        'imageUrl': 'assets/images/acai.png',
-      },
-      {
-        'title': 'Creme de Cupuaçu',
-        'description': 'Sabor único e tropical.',
-        'price': 'R\$ 13,00',
-        'imageUrl': 'assets/images/cupuacu.png',
-      },
-    ],
-  };
+  final Map<String, List<Map<String, String>>> produtos = {};
+  bool isLoading = true;
+
+  void initState(){
+    super.initState();
+    fetchProductsByCategory(selectedCategory);
+  }
+
+  Future<void> fetchProductsByCategory(String category) async {
+    setState(() {
+      isLoading = true; // Start loading indicator
+    });
+
+    Conexao conexao = Conexao(); // Create the connection instance
+    try {
+      var result = await conexao.getProductByCategory(category);
+
+      setState(() {
+        produtos[category] = result[category] ?? [];
+        isLoading = false; // Stop loading indicator
+      });
+
+    } catch (e) {
+      print('Error fetching products: $e');
+      setState(() {
+        isLoading = false; // Stop loading indicator even in case of error
+      });
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -165,39 +136,53 @@ class TelaInicialState extends State<TelaInicial> {
               child: Row(
                 children: [
                   CategoryButton(
-                    title: 'Lanches',
-                    isSelected: selectedCategory == 'Lanches',
+                    title: 'Refeições',
+                    isSelected: selectedCategory == 'refeicoes',
                     onTap: () {
                       setState(() {
-                        selectedCategory = 'Lanches';
+                        selectedCategory = 'refeicoes';
                       });
+                      fetchProductsByCategory(selectedCategory);
                     },
                   ),
                   CategoryButton(
-                    title: 'Sucos',
-                    isSelected: selectedCategory == 'Sucos',
+                    title: 'Porções',
+                    isSelected: selectedCategory == 'porcoes',
                     onTap: () {
                       setState(() {
-                        selectedCategory = 'Sucos';
+                        selectedCategory = 'porcoes';
                       });
+                      fetchProductsByCategory(selectedCategory);
                     },
                   ),
                   CategoryButton(
-                    title: 'Refrigerantes',
-                    isSelected: selectedCategory == 'Refrigerantes',
+                    title: 'Bebidas não Alcoólicas',
+                    isSelected: selectedCategory == 'bebidas_n_alcoolicas',
                     onTap: () {
                       setState(() {
-                        selectedCategory = 'Refrigerantes';
+                        selectedCategory = 'bebidas_n_alcoolicas';
                       });
+                      fetchProductsByCategory(selectedCategory);
                     },
                   ),
                   CategoryButton(
-                    title: 'Cremes',
-                    isSelected: selectedCategory == 'Cremes',
+                    title: 'Bebidas Alcoólicas',
+                    isSelected: selectedCategory == 'bebidas_alcoolicas',
                     onTap: () {
                       setState(() {
-                        selectedCategory = 'Cremes';
+                        selectedCategory = 'bebidas_alcoolicas';
                       });
+                      fetchProductsByCategory(selectedCategory);
+                    },
+                  ),
+                  CategoryButton(
+                    title: 'Sobremesas',
+                    isSelected: selectedCategory == 'sobremesas',
+                    onTap: () {
+                      setState(() {
+                        selectedCategory = 'sobremesas';
+                      });
+                      fetchProductsByCategory(selectedCategory);
                     },
                   ),
                 ],
@@ -206,16 +191,20 @@ class TelaInicialState extends State<TelaInicial> {
           ),
           const SizedBox(height: 4),
           Expanded(
-            child: ListView(
-              children: products[selectedCategory]!.map((product) {
+            child: isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : produtos[selectedCategory] != null
+            ? ListView(
+              children: produtos[selectedCategory]!.map((produto) {
                 return ProductCard(
-                  title: product['title']!,
-                  description: product['description']!,
-                  price: product['price']!,
-                  imageUrl: product['imageUrl']!,
+                  title: produto['title']!,
+                  description: produto['description']!,
+                  price: produto['price']!,
+                  imageUrl: produto['imageUrl']!,
                 );
               }).toList(),
-            ),
+            )
+            : const Center(child: Text('No products available')),
           ),
         ],
       ),
