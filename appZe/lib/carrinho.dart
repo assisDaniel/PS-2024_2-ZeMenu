@@ -5,6 +5,15 @@ class Carrinho extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final product = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+
+    // print(product!['title']);
+    // print(product!['price']);
+    // print(product!['imageUrl']);
+    // print(product!['qtd']);
+    // print(product!['total']);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Carrinho'),

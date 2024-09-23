@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ze_menu/carrinho.dart';
 import 'package:ze_menu/pedido.dart';
+import 'package:ze_menu/newPedido.dart';
 import 'conexao.dart';
 
 void main() async {
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'ZeMenu',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF14C871)),
@@ -25,6 +27,7 @@ class MyApp extends StatelessWidget {
         '/incio': (_) => const MyApp(),
         '/carrinho': (_) => const Carrinho(),
         '/pedidos': (_) => const Pedidos(),
+        '/newPedido': (_) => const NewPedido(),
       },
     );
   }
@@ -261,8 +264,8 @@ class ProductCard extends StatelessWidget {
   final String description;
   final String price;
   final String imageUrl;
-  final double imageWidth; // Largura da imagem
-  final double imageHeight; // Altura da imagem
+  final double imageWidth;
+  final double imageHeight;
 
   const ProductCard({
     super.key,
@@ -276,71 +279,79 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Obtém o tamanho da tela
     final screenWidth = MediaQuery.of(context).size.width;
-
-    // Defina diferentes larguras para a imagem conforme o tamanho da tela
     double imageWidth = screenWidth * 0.3;
     double imageHeight = imageWidth;
-
-    // Modifica os tamanhos de texto de forma responsiva
-    double titleTextSize = screenWidth > 600 ? 18 : 16; // Aumenta em telas maiores
+    double titleTextSize = screenWidth > 600 ? 18 : 16;
     double descriptionTextSize = screenWidth > 600 ? 14 : 12;
     double priceTextSize = screenWidth > 600 ? 18 : 16;
 
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Card(
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            // Ajustar layout responsivo com base na largura disponível
-            return Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Image.asset(
-                  imageUrl,
-                  width: imageWidth, // Define a largura responsiva da imagem
-                  height: imageHeight, // Define a altura responsiva da imagem
-                  fit: BoxFit.cover, // A imagem preenche o container
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  // Expande o conteúdo da descrição para ocupar o restante do espaço
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        title,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: titleTextSize, // Tamanho responsivo
-                        ),
-                      ),
-                      SizedBox(
-                        width: screenWidth * 0.5, // Responsivo ao tamanho da tela
-                        child: Text(
-                          description,
-                          style: TextStyle(fontSize: descriptionTextSize),
-                        ),
-                      ),
-                      Text(
-                        price,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: priceTextSize, // Tamanho responsivo
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            );
+    return InkWell(
+      onTap: () {
+        // Redirect to /carrinho and pass product details
+        Navigator.pushNamed(
+          context,
+          '/newPedido',
+          arguments: {
+            'title': title,
+            'price': price,
+            'imageUrl': imageUrl,
           },
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Card(
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Image.asset(
+                    imageUrl,
+                    width: imageWidth,
+                    height: imageHeight,
+                    fit: BoxFit.cover,
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          title,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: titleTextSize,
+                          ),
+                        ),
+                        SizedBox(
+                          width: screenWidth * 0.5,
+                          child: Text(
+                            description,
+                            style: TextStyle(fontSize: descriptionTextSize),
+                          ),
+                        ),
+                        Text(
+                          price,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: priceTextSize,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              );
+            },
+          ),
         ),
       ),
     );
   }
 }
+
 
 class CategoryButton extends StatelessWidget {
   final String title;
