@@ -1,5 +1,4 @@
 import 'package:postgres/postgres.dart';
-import 'package:ze_menu/main.dart';
 
 class Conexao{
   PostgreSQLConnection? conn;
@@ -29,7 +28,7 @@ class Conexao{
 
     try {
       List<List<dynamic>> results = await conn!.query('''
-        SELECT nome_item, descricao, precos, imagem_item 
+        SELECT nome_item, descricao, precos::numeric, imagem_item 
         FROM emp1.cardapio 
         WHERE categoria = @categoria
       ''', substitutionValues: {
@@ -47,7 +46,7 @@ class Conexao{
         produtos[categoria]?.add({
           'title': row[0].toString(),
           'description': row[1].toString(),
-          'price': row[2].toString(),
+          'price': 'R\$ '+row[2].toString(),
           'imageUrl': row[3].toString()
         });
       }

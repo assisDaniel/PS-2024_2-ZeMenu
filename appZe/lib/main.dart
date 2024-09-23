@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ze_menu/carrinho.dart';
 import 'package:ze_menu/pedido.dart';
-import 'package:postgres/postgres.dart';
 import 'conexao.dart';
 
 void main() async {
@@ -51,23 +50,26 @@ class TelaInicialState extends State<TelaInicial> {
 
   Future<void> fetchProductsByCategory(String category) async {
     setState(() {
-      isLoading = true; // Inicia o carregamento
+      isLoading = true; // Start loading indicator
     });
 
-    Conexao conexao = Conexao(); // Instancia a conexão
+    Conexao conexao = Conexao(); // Create the connection instance
     try {
       var result = await conexao.getProductByCategory(category);
+
       setState(() {
         produtos[category] = result[category] ?? [];
-        isLoading = false; // Finaliza o carregamento
+        isLoading = false; // Stop loading indicator
       });
+
     } catch (e) {
-      print('Erro ao buscar produtos: $e');
+      print('Error fetching products: $e');
       setState(() {
-        isLoading = false; // Mesmo com erro, desativa o indicador de carregamento
+        isLoading = false; // Stop loading indicator even in case of error
       });
     }
   }
+
 
 
   @override
@@ -140,6 +142,7 @@ class TelaInicialState extends State<TelaInicial> {
                       setState(() {
                         selectedCategory = 'refeicoes';
                       });
+                      fetchProductsByCategory(selectedCategory);
                     },
                   ),
                   CategoryButton(
@@ -149,6 +152,7 @@ class TelaInicialState extends State<TelaInicial> {
                       setState(() {
                         selectedCategory = 'porcoes';
                       });
+                      fetchProductsByCategory(selectedCategory);
                     },
                   ),
                   CategoryButton(
@@ -158,6 +162,7 @@ class TelaInicialState extends State<TelaInicial> {
                       setState(() {
                         selectedCategory = 'bebidas_n_alcoolicas';
                       });
+                      fetchProductsByCategory(selectedCategory);
                     },
                   ),
                   CategoryButton(
@@ -167,6 +172,7 @@ class TelaInicialState extends State<TelaInicial> {
                       setState(() {
                         selectedCategory = 'bebidas_alcoolicas';
                       });
+                      fetchProductsByCategory(selectedCategory);
                     },
                   ),
                   CategoryButton(
@@ -176,6 +182,7 @@ class TelaInicialState extends State<TelaInicial> {
                       setState(() {
                         selectedCategory = 'sobremesas';
                       });
+                      fetchProductsByCategory(selectedCategory);
                     },
                   ),
                 ],
@@ -185,8 +192,9 @@ class TelaInicialState extends State<TelaInicial> {
           const SizedBox(height: 4),
           Expanded(
             child: isLoading
-            ? const Center (child: CircularProgressIndicator()) 
-            : ListView(
+            ? const Center(child: CircularProgressIndicator())
+            : produtos[selectedCategory] != null
+            ? ListView(
               children: produtos[selectedCategory]!.map((produto) {
                 return ProductCard(
                   title: produto['title']!,
@@ -195,7 +203,8 @@ class TelaInicialState extends State<TelaInicial> {
                   imageUrl: produto['imageUrl']!,
                 );
               }).toList(),
-            ),
+            )
+            : const Center(child: Text('No products available')),
           ),
         ],
       ),
