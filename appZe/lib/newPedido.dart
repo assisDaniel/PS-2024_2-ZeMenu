@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+// Lista de itens para o carrinho
+List<Map<String, dynamic>> cartItems = [];
+
 class NewPedido extends StatefulWidget {
   const NewPedido({super.key});
 
@@ -13,7 +16,8 @@ class _NewPedidoState extends State<NewPedido> {
   @override
   Widget build(BuildContext context) {
     // Retrieve the arguments passed from the previous screen
-    final product = ModalRoute.of(context)?.settings.arguments as Map<String, String>?;
+    final product =
+        ModalRoute.of(context)?.settings.arguments as Map<String, String>?;
 
     if (product == null) {
       return const Scaffold(
@@ -22,7 +26,8 @@ class _NewPedidoState extends State<NewPedido> {
     }
 
     // Parse the price to a double to handle calculations
-    double price = double.parse(product['price']!.replaceAll('R\$', '').replaceAll(',', '.'));
+    double price = double.parse(
+        product['price']!.replaceAll('R\$', '').replaceAll(',', '.'));
 
     return Scaffold(
       appBar: AppBar(
@@ -61,7 +66,8 @@ class _NewPedidoState extends State<NewPedido> {
                       ),
                       Text(
                         "${product['price']}",
-                        style: const TextStyle(fontSize: 16, color: Colors.grey),
+                        style:
+                            const TextStyle(fontSize: 16, color: Colors.grey),
                       ),
                     ],
                   ),
@@ -161,21 +167,21 @@ class _NewPedidoState extends State<NewPedido> {
                 minimumSize: const Size.fromHeight(50),
               ),
               onPressed: () {
-                Navigator.pushNamed(
-                  context,
-                  '/carrinho',
-                  arguments: {
-                    'title': product['title'],
-                    'price': product['price'],
-                    'imageUrl': product['imageUrl'],
-                    'qtd': quantity,
-                    'total': price * quantity,
-                  },
-                );
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('${product['title']} adicionado ao carrinho!')),
-                );
+                // Adiciona os itens na lista do carrinho
+                cartItems.add({
+                  'title': product['title'],
+                  'price': product['price'],
+                  'imageUrl': product['imageUrl'],
+                  'qtd': quantity,
+                  'total': price * quantity,
+                });
 
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                      content:
+                          Text('${product['title']} adicionado ao carrinho!')),
+                );
+                Navigator.pop(context); // Volta para a tela de inicio
               },
               child: const Text(
                 'Adicionar ao carrinho',
