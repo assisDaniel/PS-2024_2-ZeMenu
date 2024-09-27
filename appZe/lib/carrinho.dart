@@ -49,7 +49,7 @@ class _CarrinhoState extends State<Carrinho> {
             ),
             TextButton(
               style: TextButton.styleFrom(
-                backgroundColor: Colors.red,
+                backgroundColor: const Color(0xFFF44336),
                 foregroundColor: Colors.white,
                 textStyle:
                     const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -58,6 +58,61 @@ class _CarrinhoState extends State<Carrinho> {
               onPressed: () {
                 _removeItem(index); // Chama a função de delete
                 Navigator.of(context).pop(); // Fecha o modal
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // função para enviar 
+ Future<void> _confirmarPedido() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, 
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(6),
+          ),
+          content: const Text(
+            'Deseja confirmar o pedido?',
+            style: TextStyle(
+              fontSize: 18,
+              color: Colors.black54,
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                backgroundColor: const Color.fromARGB(255, 218, 0, 0),
+                foregroundColor: Colors.white,
+                textStyle: const TextStyle(
+                    fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              child: const Text('Cancelar'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                backgroundColor: const Color(0xFF14C871),
+                foregroundColor: Colors.white,
+                textStyle: const TextStyle(
+                    fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              child: const Text('Confirmar'),
+              onPressed: () {
+                Navigator.of(context).pop(); // Fecha o modal
+                // Navega para a tela de pedidos e finaliza o pedido
+                Navigator.pushNamed(
+                  context,
+                  '/pedidos',
+                  arguments: cartItems, // Envia os itens do carrinho
+                );
               },
             ),
           ],
@@ -163,11 +218,14 @@ class _CarrinhoState extends State<Carrinho> {
                     ),
                   ),
                   onPressed: () {
+                    /*
                     Navigator.pushNamed(
                       context,
                       '/pedidos',
                       arguments: cartItems,
                     );
+                    */
+                    _confirmarPedido();
                   },
                   child: const Text(
                     'Finalizar pedido',
