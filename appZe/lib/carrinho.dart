@@ -183,7 +183,7 @@ class _CarrinhoState extends State<Carrinho> {
         onTap: (index) {
           switch (index) {
             case 0:
-              Navigator.of(context).pushNamed('/incio');
+              Navigator.of(context).pushNamed('/inicio');
               break;
             case 1:
               Navigator.of(context).pushNamed('/pedidos');

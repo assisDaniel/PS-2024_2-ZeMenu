@@ -46,7 +46,7 @@ class Conexao{
         produtos[categoria]?.add({
           'title': row[0].toString(),
           'description': row[1].toString(),
-          'price': 'R\$ '+row[2].toString(),
+          'price': 'R\$ ${row[2]}',
           'imageUrl': row[3].toString()
         });
       }
