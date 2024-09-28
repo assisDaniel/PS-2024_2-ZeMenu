@@ -57,4 +57,33 @@ class Conexao{
       return {};
     }
   }
+  
+  Future<void> inserirPedido(Map<String, dynamic> pedido) async {
+  if (conn == null || conn!.isClosed) {
+      await conectar();
+    }
+  
+  try {
+
+  final query = '''
+    INSERT INTO emp1.pedidos (
+      nome_item, preco, imagem_item, qtd)
+    VALUES (@nome_item, @preco, @imagem_item, @qtd)
+  ''';
+
+  
+    await conn!.query(query, substitutionValues: {
+      'nome_item': pedido['nome_item'],
+      'preco': pedido['preco'],
+      'imagem_item': pedido['imagem_item'],
+      'qtd': pedido['qtd']
+    });
+  } catch (e) {
+    print("Erro ao inserir pedido: $e"); 
+  } finally {
+    await conn!.close(); 
+  }
+}
+
+
 }
