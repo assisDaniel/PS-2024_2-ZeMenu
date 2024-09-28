@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'newPedido.dart';
+import 'conexao.dart';
 
 class Carrinho extends StatefulWidget {
   const Carrinho({super.key});
@@ -66,8 +67,11 @@ class _CarrinhoState extends State<Carrinho> {
     );
   }
 
-  // função para enviar 
+  // função para finalizar pedidos(encaminha para /pedidos)
  Future<void> _confirmarPedido() async {
+    Conexao conn = Conexao();
+    await conn.conectar();
+    
     return showDialog<void>(
       context: context,
       barrierDismissible: false, 
@@ -106,12 +110,23 @@ class _CarrinhoState extends State<Carrinho> {
               ),
               child: const Text('Confirmar'),
               onPressed: () {
-                Navigator.of(context).pop(); // Fecha o modal
-                // Navega para a tela de pedidos e finaliza o pedido
+                Navigator.of(context).pop(); // Fecha o modal                
+             
+               for (var item in cartItems) {
+                Map<String, dynamic> pedido = {
+                  'nome_item': item['title'],       
+                  'preco': item['price'],           
+                  'imagem_item': item['imageUrl'],  
+                  'qtd': item['qtd'],               
+                };                
+                conn.inserirPedido(pedido);
+              } 
+                cartItems.clear();
+                // Navega para a tela de pedidos e finaliza o pedido          
                 Navigator.pushNamed(
                   context,
                   '/pedidos',
-                  arguments: cartItems, // Envia os itens do carrinho
+                  //arguments: cartItems, // Envia os itens do carrinho
                 );
               },
             ),
