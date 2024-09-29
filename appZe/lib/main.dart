@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       ),
       home: const TelaInicial(),
       routes: {
-        '/incio': (_) => const MyApp(),
+        '/inicio': (_) => const MyApp(),
         '/carrinho': (_) => const Carrinho(),
         '/pedidos': (_) => const Pedidos(),
         '/newPedido': (_) => const NewPedido(),
@@ -46,6 +46,7 @@ class TelaInicialState extends State<TelaInicial> {
   final Map<String, List<Map<String, String>>> produtos = {};
   bool isLoading = true;
 
+  @override
   void initState(){
     super.initState();
     fetchProductsByCategory(selectedCategory);
