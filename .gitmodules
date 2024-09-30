@@ -1,0 +1,3 @@
+[submodule "appZe/ze-menu-web"]
+	path = appZe/ze-menu-web
+	url = https://github.com/fariaiago/ze-menu-web.git

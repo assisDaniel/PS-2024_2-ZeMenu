@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:ze_menu/carrinho.dart';
 import 'package:ze_menu/pedido.dart';
+import 'package:ze_menu/newPedido.dart';
 import 'conexao.dart';
 
 void main() async {
   runApp(const MyApp());
-  Conexao conexao = Conexao();
-  await conexao.conectar();
+  Conexao conn = Conexao();
+  conn.conectar();
 }
 
 class MyApp extends StatelessWidget {
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'ZeMenu',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF14C871)),
@@ -22,9 +24,10 @@ class MyApp extends StatelessWidget {
       ),
       home: const TelaInicial(),
       routes: {
-        '/incio': (_) => const MyApp(),
+        '/inicio': (_) => const MyApp(),
         '/carrinho': (_) => const Carrinho(),
         '/pedidos': (_) => const Pedidos(),
+        '/newPedido': (_) => const NewPedido(),
       },
     );
   }
@@ -38,68 +41,40 @@ class TelaInicial extends StatefulWidget {
 }
 
 class TelaInicialState extends State<TelaInicial> {
-  String selectedCategory = 'Lanches';
+  var selectedCategory = 'refeicoes';
 
-  final Map<String, List<Map<String, String>>> products = {
-    'Lanches': [
-      {
-        'title': 'X Tudo',
-        'description':
-            'PÃO, HAMBURGUER, BACON, SALSICHA, CALABRESA, OVO, CATUPIRY, PRESUNTO, MUSSARELA, ALFACE, TOMATE.',
-        'price': 'R\$ 25,00',
-        'imageUrl': 'assets/images/fotohamburguer.png',
-      },
-      {
-        'title': 'X Bacon',
-        'description':
-            'PÃO, HAMBURGUER, BACON, SALSICHA, OVO, CATUPIRY, PRESUNTO, MUSSARELA, ALFACE, TOMATE.',
-        'price': 'R\$ 21,00',
-        'imageUrl': 'assets/images/fotohamburguer.png',
-      },
-    ],
-    'Sucos': [
-      {
-        'title': 'Suco de Laranja',
-        'description': 'Fresco, natural e delicioso.',
-        'price': 'R\$ 10,00',
-        'imageUrl': 'assets/images/suco_laranja.jpg',
-      },
-      {
-        'title': 'Suco de Morango',
-        'description': 'Refrescante e doce.',
-        'price': 'R\$ 12,00',
-        'imageUrl': 'assets/images/suco_morango.png',
-      },
-    ],
-    'Refrigerantes': [
-      {
-        'title': 'Coca-Cola',
-        'description': 'Tradicional e gelada.',
-        'price': 'R\$ 7,00',
-        'imageUrl': 'assets/images/coca_cola.png',
-      },
-      {
-        'title': 'Guaraná',
-        'description': 'Brasileiro e refrescante.',
-        'price': 'R\$ 6,00',
-        'imageUrl': 'assets/images/guarana.jpg',
-      },
-    ],
-    'Cremes': [
-      {
-        'title': 'Açaí',
-        'description': 'Açaí cremoso com acompanhamentos.',
-        'price': 'R\$ 15,00',
-        'imageUrl': 'assets/images/acai.png',
-      },
-      {
-        'title': 'Creme de Cupuaçu',
-        'description': 'Sabor único e tropical.',
-        'price': 'R\$ 13,00',
-        'imageUrl': 'assets/images/cupuacu.png',
-      },
-    ],
-  };
+  final Map<String, List<Map<String, String>>> produtos = {};
+  bool isLoading = true;
+
+  @override
+  void initState(){
+    super.initState();
+    fetchProductsByCategory(selectedCategory);
+  }
+
+  Future<void> fetchProductsByCategory(String category) async {
+    setState(() {
+      isLoading = true; // Start loading indicator
+    });
+
+    Conexao conexao = Conexao(); // Create the connection instance
+    try {
+      var result = await conexao.getProductByCategory(category);
+
+      setState(() {
+        produtos[category] = result[category] ?? [];
+        isLoading = false; // Stop loading indicator
+      });
+
+    } catch (e) {
+      print('Error fetching products: $e');
+      setState(() {
+        isLoading = false; // Stop loading indicator even in case of error
+      });
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -165,39 +140,53 @@ class TelaInicialState extends State<TelaInicial> {
               child: Row(
                 children: [
                   CategoryButton(
-                    title: 'Lanches',
-                    isSelected: selectedCategory == 'Lanches',
+                    title: 'Refeições',
+                    isSelected: selectedCategory == 'refeicoes',
                     onTap: () {
                       setState(() {
-                        selectedCategory = 'Lanches';
+                        selectedCategory = 'refeicoes';
                       });
+                      fetchProductsByCategory(selectedCategory);
                     },
                   ),
                   CategoryButton(
-                    title: 'Sucos',
-                    isSelected: selectedCategory == 'Sucos',
+                    title: 'Porções',
+                    isSelected: selectedCategory == 'porcoes',
                     onTap: () {
                       setState(() {
-                        selectedCategory = 'Sucos';
+                        selectedCategory = 'porcoes';
                       });
+                      fetchProductsByCategory(selectedCategory);
                     },
                   ),
                   CategoryButton(
-                    title: 'Refrigerantes',
-                    isSelected: selectedCategory == 'Refrigerantes',
+                    title: 'Bebidas não Alcoólicas',
+                    isSelected: selectedCategory == 'bebidas_n_alcoolicas',
                     onTap: () {
                       setState(() {
-                        selectedCategory = 'Refrigerantes';
+                        selectedCategory = 'bebidas_n_alcoolicas';
                       });
+                      fetchProductsByCategory(selectedCategory);
                     },
                   ),
                   CategoryButton(
-                    title: 'Cremes',
-                    isSelected: selectedCategory == 'Cremes',
+                    title: 'Bebidas Alcoólicas',
+                    isSelected: selectedCategory == 'bebidas_alcoolicas',
                     onTap: () {
                       setState(() {
-                        selectedCategory = 'Cremes';
+                        selectedCategory = 'bebidas_alcoolicas';
                       });
+                      fetchProductsByCategory(selectedCategory);
+                    },
+                  ),
+                  CategoryButton(
+                    title: 'Sobremesas',
+                    isSelected: selectedCategory == 'sobremesas',
+                    onTap: () {
+                      setState(() {
+                        selectedCategory = 'sobremesas';
+                      });
+                      fetchProductsByCategory(selectedCategory);
                     },
                   ),
                 ],
@@ -206,16 +195,20 @@ class TelaInicialState extends State<TelaInicial> {
           ),
           const SizedBox(height: 4),
           Expanded(
-            child: ListView(
-              children: products[selectedCategory]!.map((product) {
+            child: isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : produtos[selectedCategory] != null
+            ? ListView(
+              children: produtos[selectedCategory]!.map((produto) {
                 return ProductCard(
-                  title: product['title']!,
-                  description: product['description']!,
-                  price: product['price']!,
-                  imageUrl: product['imageUrl']!,
+                  title: produto['title']!,
+                  description: produto['description']!,
+                  price: produto['price']!,
+                  imageUrl: produto['imageUrl']!,
                 );
               }).toList(),
-            ),
+            )
+            : const Center(child: Text('No products available')),
           ),
         ],
       ),
@@ -272,8 +265,8 @@ class ProductCard extends StatelessWidget {
   final String description;
   final String price;
   final String imageUrl;
-  final double imageWidth; // Largura da imagem
-  final double imageHeight; // Altura da imagem
+  final double imageWidth;
+  final double imageHeight;
 
   const ProductCard({
     super.key,
@@ -287,71 +280,79 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Obtém o tamanho da tela
     final screenWidth = MediaQuery.of(context).size.width;
-
-    // Defina diferentes larguras para a imagem conforme o tamanho da tela
     double imageWidth = screenWidth * 0.3;
     double imageHeight = imageWidth;
-
-    // Modifica os tamanhos de texto de forma responsiva
-    double titleTextSize = screenWidth > 600 ? 18 : 16; // Aumenta em telas maiores
+    double titleTextSize = screenWidth > 600 ? 18 : 16;
     double descriptionTextSize = screenWidth > 600 ? 14 : 12;
     double priceTextSize = screenWidth > 600 ? 18 : 16;
 
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Card(
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            // Ajustar layout responsivo com base na largura disponível
-            return Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Image.asset(
-                  imageUrl,
-                  width: imageWidth, // Define a largura responsiva da imagem
-                  height: imageHeight, // Define a altura responsiva da imagem
-                  fit: BoxFit.cover, // A imagem preenche o container
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  // Expande o conteúdo da descrição para ocupar o restante do espaço
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        title,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: titleTextSize, // Tamanho responsivo
-                        ),
-                      ),
-                      SizedBox(
-                        width: screenWidth * 0.5, // Responsivo ao tamanho da tela
-                        child: Text(
-                          description,
-                          style: TextStyle(fontSize: descriptionTextSize),
-                        ),
-                      ),
-                      Text(
-                        price,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: priceTextSize, // Tamanho responsivo
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            );
+    return InkWell(
+      onTap: () {
+        // Redirect to /carrinho and pass product details
+        Navigator.pushNamed(
+          context,
+          '/newPedido',
+          arguments: {
+            'title': title,
+            'price': price,
+            'imageUrl': imageUrl,
           },
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Card(
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Image.asset(
+                    imageUrl,
+                    width: imageWidth,
+                    height: imageHeight,
+                    fit: BoxFit.cover,
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          title,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: titleTextSize,
+                          ),
+                        ),
+                        SizedBox(
+                          width: screenWidth * 0.5,
+                          child: Text(
+                            description,
+                            style: TextStyle(fontSize: descriptionTextSize),
+                          ),
+                        ),
+                        Text(
+                          price,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: priceTextSize,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              );
+            },
+          ),
         ),
       ),
     );
   }
 }
+
 
 class CategoryButton extends StatelessWidget {
   final String title;
