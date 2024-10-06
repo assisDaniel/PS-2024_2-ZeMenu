@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ze_menu/carrinho.dart';
+import 'package:ze_menu/codigo_qr.dart';
+import 'package:ze_menu/leitor.dart';
 import 'package:ze_menu/pedido.dart';
 import 'package:ze_menu/newPedido.dart';
 import 'conexao.dart';
@@ -22,12 +24,13 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF14C871)),
         useMaterial3: true,
       ),
-      home: const TelaInicial(),
+      home: QRLeitor(),
       routes: {
-        '/inicio': (_) => const MyApp(),
+        '/inicio': (_) => const TelaInicial(),
         '/carrinho': (_) => const Carrinho(),
         '/pedidos': (_) => const Pedidos(),
         '/newPedido': (_) => const NewPedido(),
+        '/codigo': (_) => QRLeitor(),
       },
     );
   }
@@ -36,6 +39,7 @@ class MyApp extends StatelessWidget {
 class TelaInicial extends StatefulWidget {
   const TelaInicial({super.key});
 
+
   @override
   TelaInicialState createState() => TelaInicialState();
 }
@@ -43,13 +47,15 @@ class TelaInicial extends StatefulWidget {
 class TelaInicialState extends State<TelaInicial> {
   var selectedCategory = 'refeicoes';
 
+  static CodigoQr? codigo;
   final Map<String, List<Map<String, String>>> produtos = {};
   bool isLoading = true;
+  bool jaTentouConexao = false;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    fetchProductsByCategory(selectedCategory);
+    jaTentouConexao = false;
   }
 
   Future<void> fetchProductsByCategory(String category) async {
@@ -58,8 +64,9 @@ class TelaInicialState extends State<TelaInicial> {
     });
 
     Conexao conexao = Conexao(); // Create the connection instance
+    TelaInicialState.codigo ??= ModalRoute.of(context)!.settings.arguments as CodigoQr;
     try {
-      var result = await conexao.getProductByCategory(category);
+      var result = await conexao.getProductByCategory(codigo!.restaurante, category);
 
       setState(() {
         produtos[category] = result[category] ?? [];
@@ -74,10 +81,13 @@ class TelaInicialState extends State<TelaInicial> {
     }
   }
 
-
-
   @override
   Widget build(BuildContext context) {
+    if (!jaTentouConexao)
+    {
+      fetchProductsByCategory(selectedCategory);
+      jaTentouConexao = true;
+    }
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF14C871),
@@ -217,7 +227,7 @@ class TelaInicialState extends State<TelaInicial> {
         onTap: (index) {
           switch (index) {
             case 0:
-              Navigator.of(context).pushNamed('/incio');
+              Navigator.of(context).pushNamed('/inicio');
               break;
             case 1:
               Navigator.of(context).pushNamed('/pedidos');
