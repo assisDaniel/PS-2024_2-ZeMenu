@@ -29,3 +29,13 @@ Valor: Como gerente/administrador quero ter acesso à funcionalidades que facili
 - DU8 - Visualizar Pedidos da Mesa. Autor: @httpablo | Revisor: @danmaciel23
 - DU9 - Gerenciar Cardápio. Autor: @assisDaniel | Revisor: @httpablo
 - DU10 - Adicionar Itens no Cardápio. Autor: @tarcisof | Revisor: @assisDaniel
+
+## 4ª Iteração - (14/10/2024 - 27/10/2024)
+Valor: Como gerente/administrador quero ter acesso à demais funcionalidades para gerenciamento de cardápio. Além das implementadas anteriormente, quero agora outras como adição, edição e remoção de categorias e itens.
+
+- DU11 - Adicionar Categoria. Autor: @assisDaniel | Revisor: @fariaIago
+- DU12 - Deletar Categoria. Autor: @httpablo | Revisor: assisDaniel
+- DU13 - Editar Categoria. Autor: @tarcisof | Revisor: @httpablo
+- DU14 - Deletar Itens do Cardápio. Autor: @fariaIago | Revisor: @tarcisof
+- DU15 - Editar Itens do Cardápio. Autor: @danmaciel23 | Revisor: @fariaIago
+- DU16 - Cadastrar usuário/restaurantes. Autor: @fariaIago | Revisor: @danmaciel23
