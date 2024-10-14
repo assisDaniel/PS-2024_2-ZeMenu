@@ -21,7 +21,7 @@ class Conexao{
   }
 
 
-  Future<Map<String, List<Map<String, String>>>> getProductByCategory(String categoria) async {
+  Future<Map<String, List<Map<String, String>>>> getProductByCategory(String restaurante, String categoria) async {
     if (conn == null || conn!.isClosed) {
       await conectar();
     }
@@ -29,7 +29,7 @@ class Conexao{
     try {
       List<List<dynamic>> results = await conn!.query('''
         SELECT nome_item, descricao, precos::numeric, imagem_item 
-        FROM emp1.cardapio 
+        FROM $restaurante.cardapio 
         WHERE categoria = @categoria
       ''', substitutionValues: {
         'categoria': categoria
