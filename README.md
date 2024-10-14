@@ -20,6 +20,8 @@ Relatórios ficarão aqui quando as iterações forem finalizadas.
 
 - [1ª Iteração](https://docs.google.com/spreadsheets/d/1Iha1DNPsv8svFlG1MQ0vrkFOPZ2pTirbz946IJhHFOw/edit?gid=0#gid=0)
     - [Vídeo App](https://youtube.com/shorts/BfEzh3U5x_c?feature=share)
+- [2ª Iteração](https://docs.google.com/spreadsheets/d/1Iha1DNPsv8svFlG1MQ0vrkFOPZ2pTirbz946IJhHFOw/edit?gid=2070615543#gid=2070615543)
+    - [Vídeo App](https://youtu.be/1ta2EkaUkf8)
 
 ## Protótipos
 Os protótipos foram feitos no figma, visualize-o através do link: [clique aqui](https://www.figma.com/design/biS0ZyJgpL2OzB5R3xVYXa/Z%C3%A9Menu?node-id=0-1&t=Q9IABUx2fVXe9zf3-1)
