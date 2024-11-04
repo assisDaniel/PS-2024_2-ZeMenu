@@ -30,7 +30,7 @@ Valor: Como gerente/administrador quero ter acesso à funcionalidades que facili
 - DU9 - Gerenciar Cardápio. Autor: @assisDaniel | Revisor: @httpablo
 - DU10 - Adicionar Itens no Cardápio. Autor: @tarcisof | Revisor: @assisDaniel
 
-## 4ª Iteração - (14/10/2024 - 27/10/2024)
+## 4ª Iteração - (14/10/2024 - 03/10/2024)
 Valor: Como gerente/administrador quero ter acesso à demais funcionalidades para gerenciamento de cardápio. Além das implementadas anteriormente, quero agora outras como adição, edição e remoção de categorias e itens.
 
 - DU11 - Adicionar Categoria. Autor: @assisDaniel | Revisor: @fariaIago
