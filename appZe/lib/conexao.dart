@@ -67,8 +67,8 @@ class Conexao{
 
   final query = '''
     INSERT INTO emp1.pedidos (
-      nome_item, preco, imagem_item, qtd)
-    VALUES (@nome_item, @preco, @imagem_item, @qtd)
+      nome_item, preco, imagem_item, qtd, mesa)
+    VALUES (@nome_item, @preco, @imagem_item, @qtd, 1)
   ''';
 
   
