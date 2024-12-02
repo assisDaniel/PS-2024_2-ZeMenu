@@ -81,7 +81,7 @@ class TelaInicialState extends State<TelaInicial> {
     }
   }
 
-  @override
+    @override
   Widget build(BuildContext context) {
     if (!jaTentouConexao)
     {
@@ -90,49 +90,31 @@ class TelaInicialState extends State<TelaInicial> {
     }
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: const Color(0xFF14C871),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
         ),
         bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(90.0),
+          preferredSize: const Size.fromHeight(60.0),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                TextField(
-                  decoration: InputDecoration(
-                    hintText: 'O que você deseja hoje?',
-                    prefixIcon: const ImageIcon(
-                      AssetImage("assets/images/busca.png"),
-                      color: Color.fromARGB(255, 102, 102, 102),
-                    ),
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.white),
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    hintStyle: const TextStyle(color: Colors.grey),
-                  ),
+                Image.asset(
+                  'assets/images/logoempresa.png',
+                  height: 64,
                 ),
-                const SizedBox(height: 8.0),
-                Row(
-                  children: [
-                    Image.asset(
-                      'assets/images/logoempresa.png',
-                      height: 64,
-                    ),
-                    const SizedBox(width: 16),
-                    const Text(
-                      'Hamburgueria',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
+                const SizedBox(width: 16),
+                const Text(
+                  'Hamburgueria',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
               ],
             ),
